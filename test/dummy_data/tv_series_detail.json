@@ -1,0 +1,45 @@
+{
+    "backdrop_path": "/suopoADq0k8YZr4dQXcU6pToj6s.jpg",
+    "created_by": [],
+    "episode_run_time": [
+      60
+    ],
+    "first_air_date": "2011-04-17",
+    "genres": [],
+    "homepage": "http://www.hbo.com/game-of-thrones",
+    "id": 1399,
+    "in_production": false,
+    "languages": [
+      "en"
+    ],
+    "last_air_date": "2019-05-19",
+    "last_episode_to_air": null,
+    "name": "Game of Thrones",
+    "next_episode_to_air": null,
+    "networks": [],
+    "number_of_episodes": 73,
+    "number_of_seasons": 8,
+    "origin_country": [
+      "US"
+    ],
+    "original_language": "en",
+    "original_name": "Game of Thrones",
+    "overview": "Overview",
+    "popularity": 369.594,
+    "poster_path": "/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
+    "production_companies": [],
+    "production_countries": [],
+    "seasons": [],
+    "spoken_languages": [
+      {
+        "english_name": "English",
+        "iso_639_1": "en",
+        "name": "English"
+      }
+    ],
+    "status": "Ended",
+    "tagline": "Winter Is Coming",
+    "type": "Scripted",
+    "vote_average": 8.3,
+    "vote_count": 11504
+  }
