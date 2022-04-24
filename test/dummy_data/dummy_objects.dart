@@ -100,3 +100,19 @@ final testMovieMap = {
   'posterPath': 'posterPath',
   'title': 'title',
 };
+
+final tTvSeries = TvSeries(
+  backdropPath: 'backdropPath',
+  genreIds: [],
+  id: 123,
+  originalName: 'originalName',
+  overview: 'overview',
+  popularity: 1,
+  posterPath: 'posterPath',
+  firstAirDate: 'firstAirDate',
+  originCountry: [],
+  voteAverage: 1,
+  voteCount: 1,
+  originalLanguage: 'en',
+  name: 'Spider-Man',
+);

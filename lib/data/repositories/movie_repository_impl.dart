@@ -138,13 +138,10 @@ class MovieRepositoryImpl implements MovieRepository {
   @override
   Future<Either<Failure, List<dynamic>>> getWatchlistMovies() async {
     final result = await localDataSource.getWatchlistMovies();
-    return Right(result.map((data) {
-      if (data.isMovie == true) {
-        return data.toEntity();
-      } else {
-        return data.toTvSeriesEntity();
-      }
-    }).toList());
+    return Right(result
+        .map((data) =>
+            data.isMovie == true ? data.toEntity() : data.toTvSeriesEntity())
+        .toList());
   }
 
   @override

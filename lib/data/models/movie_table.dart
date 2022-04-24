@@ -32,6 +32,7 @@ class MovieTable extends Equatable {
         title: movie.name,
         posterPath: movie.posterPath,
         overview: movie.overview,
+        isMovie: false,
       );
 
   factory MovieTable.fromMap(Map<String, dynamic> map) => MovieTable(
@@ -63,6 +64,7 @@ class MovieTable extends Equatable {
         overview: overview,
         posterPath: posterPath,
         title: title,
+        isMovie: isMovie,
       );
 
   TvSeries toTvSeriesEntity() => TvSeries.watchlist(
@@ -70,6 +72,7 @@ class MovieTable extends Equatable {
         overview: overview,
         posterPath: posterPath,
         name: title,
+        isMovie: isMovie,
       );
 
   @override

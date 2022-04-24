@@ -72,8 +72,7 @@ void main() {
     backdropPath: '/b0BckgEovxYLBbIk5xXyWYQpmlT.jpg',
     genreIds: [18],
     id: 67419,
-    overview:
-        'The early life of Queen Victoria, from her accession to the throne at the tender age of 18 through to her courtship and marriage to Prince Albert. Victoria went on to rule for 63 years, and was the longest-serving monarch until she was overtaken by Elizabeth II on 9th September 2016. Rufus Sewell was Victoria’s first prime minister; the two immediately connected and their intimate friendship became a popular source of gossip that threatened to destabilise the Government – angering both Tory and Whigs alike.',
+    overview: 'Overview',
     popularity: 11.520271,
     posterPath: '/zra8NrzxaEeunRWJmUm3HZOL4sd.jpg',
     voteAverage: 1.39,
@@ -94,8 +93,7 @@ void main() {
     genreIds: [18],
     id: 67419,
     originalName: 'Victoria',
-    overview:
-        'The early life of Queen Victoria, from her accession to the throne at the tender age of 18 through to her courtship and marriage to Prince Albert. Victoria went on to rule for 63 years, and was the longest-serving monarch until she was overtaken by Elizabeth II on 9th September 2016. Rufus Sewell was Victoria’s first prime minister; the two immediately connected and their intimate friendship became a popular source of gossip that threatened to destabilise the Government – angering both Tory and Whigs alike.',
+    overview: 'Overview',
     popularity: 11.520271,
     posterPath: '/zra8NrzxaEeunRWJmUm3HZOL4sd.jpg',
     voteAverage: 1.39,
@@ -446,9 +444,12 @@ void main() {
       // act
       final result = await repository.getWatchlistMovies();
       // assert
-      print(result);
       final resultList = result.getOrElse(() => []);
-      expect(resultList, [testWatchlistMovie, testWatchlistTvSeries]);
+
+      expect(resultList, [
+        testMovieTable.toEntity(),
+        testTvSeriesMovieTable.toTvSeriesEntity()
+      ]);
     });
   });
 
@@ -673,13 +674,59 @@ void main() {
         'should return ConnectionFailure when device is not connected to the internet',
         () async {
       // arrange
-      when(mockRemoteDataSource.searchMovies(tQuery))
+      when(mockRemoteDataSource.searchTvSeries(tQuery))
           .thenThrow(SocketException('Failed to connect to the network'));
       // act
-      final result = await repository.searchMovies(tQuery);
+      final result = await repository.searchTvSeries(tQuery);
       // assert
       expect(
           result, Left(ConnectionFailure('Failed to connect to the network')));
+    });
+  });
+
+  group('Get TV Series Recommendations', () {
+    final tMovieList = <TvSeriesModel>[];
+    final tId = 1;
+
+    test('should return data (tv series list) when the call is successful',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getTvSeriesRecommendations(tId))
+          .thenAnswer((_) async => tMovieList);
+      // act
+      final result = await repository.getTvSeriesRecommendations(tId);
+      // assert
+      verify(mockRemoteDataSource.getTvSeriesRecommendations(tId));
+      /* workaround to test List in Right. Issue: https://github.com/spebbe/dartz/issues/80 */
+      final resultList = result.getOrElse(() => []);
+      expect(resultList, equals(tMovieList));
+    });
+
+    test(
+        'should return server failure when call to remote data source is unsuccessful',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getTvSeriesRecommendations(tId))
+          .thenThrow(ServerException());
+      // act
+      final result = await repository.getTvSeriesRecommendations(tId);
+      // assertbuild runner
+      verify(mockRemoteDataSource.getTvSeriesRecommendations(tId));
+      expect(result, equals(Left(ServerFailure(''))));
+    });
+
+    test(
+        'should return connection failure when the device is not connected to the internet',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getTvSeriesRecommendations(tId))
+          .thenThrow(SocketException('Failed to connect to the network'));
+      // act
+      final result = await repository.getTvSeriesRecommendations(tId);
+      // assert
+      verify(mockRemoteDataSource.getTvSeriesRecommendations(tId));
+      expect(result,
+          equals(Left(ConnectionFailure('Failed to connect to the network'))));
     });
   });
 }

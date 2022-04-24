@@ -47,12 +47,10 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
   @override
   Future<List<MovieTable>> getWatchlistMovies() async {
     final result = await databaseHelper.getWatchlistMovies();
-    return result.map((data) {
-      if (data['is_movie'] == 1) {
-        return MovieTable.fromMap(data);
-      } else {
-        return MovieTable.fromTvSeriesMap(data);
-      }
-    }).toList();
+    return result
+        .map((data) => data['is_movie'] == 1
+            ? MovieTable.fromMap(data)
+            : MovieTable.fromTvSeriesMap(data))
+        .toList();
   }
 }

@@ -24,6 +24,7 @@ class TvSeries extends Equatable {
     required this.overview,
     required this.posterPath,
     required this.name,
+    this.isMovie,
   });
 
   String? originalName;
@@ -39,6 +40,7 @@ class TvSeries extends Equatable {
   int? voteCount;
   String? originalLanguage;
   String? name;
+  bool? isMovie;
 
   @override
   List<Object?> get props => [
